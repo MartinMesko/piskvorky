@@ -6,34 +6,27 @@ package sk.martinmesko;
  */
 public class App 
 {
+    final static char PRAZDNO = ' ';
     final static char X = 'X';
     final static char O = 'O';
-
-    static char[][] board = new char[3][3];
+    static char hraTeraz = X;
+    static char[][] board = {{PRAZDNO, PRAZDNO, PRAZDNO}, {PRAZDNO, PRAZDNO, PRAZDNO}, {PRAZDNO, PRAZDNO, PRAZDNO}};
     public static void main( String[] args )
     {
-        System.out.println(printPlayBoard());
+        zobrazenieHracejPlochy();
     }
 
-    public static boolean printPlayBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + " ");
+    static void zobrazenieHracejPlochy() {
+        for (char[] riadok : board)
+        {
+            for (int i = 0; i < riadok.length/3; i++)
+            {
+                System.out.println(riadok[0] + " | " + riadok[1] + " | " + riadok[2]);
+                System.out.println("---------");
             }
-            System.out.println();
         }
 
-        return false;
     }
-
-
-
-
-
-
-
-
-
 }
 
 
