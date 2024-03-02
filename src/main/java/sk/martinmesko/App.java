@@ -26,24 +26,45 @@ public class App {
     }
 
     //vstup od hraca
+
+
     static int vstupOdHraca() {
-        Scanner scanner = new Scanner(System.in);
         int input = 0;
+        System.out.println("Zadaj číslo medzi 1 až 9 \n");
         while (true) {
-            System.out.println("Zadaj číslo medzi 1 až 9");
-            while (!scanner.hasNextInt())
-            {
-                System.out.println("Zadaj správny vstup, nezadal si číslo");
+
+            Scanner scanner = new Scanner(System.in);
+            while (!scanner.hasNextInt()) {
+                System.out.println("Zadaj číslo, nie znak!");
                 scanner.next();
             }
             input = scanner.nextInt();
 
-        }
-
-        if (input >= 1 || input =< 9) {
+            if (input >= 1 && input <= 9) {
+                break;
+            }
+            else {
+                System.out.println("Zadaj správne číslo 1 - 9");
+            }
         }
         return input;
     }
+
+
+//    static int vstupOdHraca() {
+//        System.out.println("Zadaj číslo medzi 1 až 9 \n");
+//        Scanner scanner = new Scanner(System.in);
+//        int input = 0;
+//        while (true) {
+//            if ((input >= 1 && input <= 9)||(!scanner.hasNextInt())) {
+//                input = scanner.nextInt();
+//            }
+//            else {
+//                System.out.println("Zadaj správnu hodnotu");
+//                continue;
+//            }
+//        }
+//    }
 }
 
 
