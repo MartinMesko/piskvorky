@@ -12,6 +12,7 @@ public class App {
     public static void main(String[] args) {
         zobrazenieHracejPlochy();
         int input = vstupOdHraca();
+        aktualizaciaHry(input);
         System.out.println(input);
         System.out.println(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
     }
@@ -25,9 +26,7 @@ public class App {
         }
     }
 
-    //vstup od hraca
-
-
+    //ziskanie vstupu od hraca
     static int vstupOdHraca() {
         int input = 0;
         System.out.println("Zadaj číslo medzi 1 až 9 \n");
@@ -50,21 +49,15 @@ public class App {
         return input;
     }
 
+    //aktualizacia hry
+    static void aktualizaciaHry(int input) {
 
-//    static int vstupOdHraca() {
-//        System.out.println("Zadaj číslo medzi 1 až 9 \n");
-//        Scanner scanner = new Scanner(System.in);
-//        int input = 0;
-//        while (true) {
-//            if ((input >= 1 && input <= 9)||(!scanner.hasNextInt())) {
-//                input = scanner.nextInt();
-//            }
-//            else {
-//                System.out.println("Zadaj správnu hodnotu");
-//                continue;
-//            }
-//        }
-//    }
+        board[(input - 1) / 3][(input - 1) % 3] = hraTeraz;
+        hraTeraz = (hraTeraz == X) ? O : X;
+        zobrazenieHracejPlochy();
+
+    }
+
 }
 
 
