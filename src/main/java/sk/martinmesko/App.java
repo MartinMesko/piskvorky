@@ -50,7 +50,13 @@ public class App {
 
     //aktualizacia hry
     public static void aktualizaciaHry(int input) {
-        board[(input - 1) / 3][(input - 1) % 3] = hraTerazHrac;
+        if (volno(input)) {
+            board[(input - 1) / 3][(input - 1) % 3] = hraTerazHrac;
+        }
+        else {
+            System.out.println("Políčko je obsadené, zadaj iné číslo");
+            return;
+        }
         if (!koniecHry()) {
             hraTerazHrac = (hraTerazHrac == X) ? O : X;
         }
@@ -60,7 +66,6 @@ public class App {
         }
 
     }
-
 
     //kontrola riadkov
     public static boolean riadky() {
@@ -73,7 +78,6 @@ public class App {
         }
         return false;
     }
-
 
     //kontrola stĺpcov
     public static boolean stlpce() {
@@ -124,5 +128,10 @@ public class App {
             }
         }
         return true;
+    }
+
+    //je volné políčko?
+    public static boolean volno(int input) {
+        return board[(input - 1) / 3][(input - 1) % 3] == PRAZDNO;
     }
 }
