@@ -29,9 +29,9 @@ public class App {
     //ziskanie vstupu od hraca
     public static int vstupOdHraca() {
         int input = 0;
-        System.out.println("Hráč " + hraTerazHrac + " zadaj číslo medzi 1 až 9 \n");
-        while (true) {
 
+        while (true) {
+            System.out.println("Hráč " + hraTerazHrac + " zadaj číslo medzi 1 až 9 \n");
             Scanner scanner = new Scanner(System.in);
             while (!scanner.hasNextInt()) {
                 System.out.println("Zadaj číslo, nie znak!");
@@ -41,8 +41,7 @@ public class App {
 
             if (input >= 1 && input <= 9) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Zadaj správne číslo 1 - 9");
             }
         }
@@ -51,16 +50,22 @@ public class App {
 
     //aktualizacia hry
     public static void aktualizaciaHry(int input) {
-            board[(input-1) / 3][(input-1) % 3] = hraTerazHrac;
+        board[(input - 1) / 3][(input - 1) % 3] = hraTerazHrac;
+        if (!koniecHry()) {
             hraTerazHrac = (hraTerazHrac == X) ? O : X;
+        }
+        else {
+            zobrazenieHracejPlochy();
+            System.exit(0);
+        }
+
     }
+
 
     //kontrola riadkov
     public static boolean riadky() {
-        for(char[]riadky : board)
-        {
-            if (riadky[0] == hraTerazHrac && riadky[1] == hraTerazHrac && riadky[2] == hraTerazHrac)
-            {
+        for (char[] riadky : board) {
+            if (riadky[0] == hraTerazHrac && riadky[1] == hraTerazHrac && riadky[2] == hraTerazHrac) {
 
                 System.out.println("Vyhral hráč " + hraTerazHrac);
                 return true;
@@ -72,20 +77,52 @@ public class App {
 
     //kontrola stĺpcov
     public static boolean stlpce() {
+        for (int i = 0; i < board.length; i++) {
+            if (board[0][i] == hraTerazHrac && board[1][i] == hraTerazHrac && board[2][i] == hraTerazHrac) {
+                System.out.println("Vyhral hráč " + hraTerazHrac);
+                return true;
+            }
+        }
         return false;
     }
 
     //kontrola diagonal
     public static boolean diagonaly() {
+        if (board[0][0] == hraTerazHrac && board[1][1] == hraTerazHrac && board[2][2] == hraTerazHrac) {
+            System.out.println("Vyhral hráč " + hraTerazHrac);
+            return true;
+        }
+        if (board[0][2] == hraTerazHrac && board[1][1] == hraTerazHrac && board[2][0] == hraTerazHrac) {
+            System.out.println("Vyhral hráč " + hraTerazHrac);
+            return true;
+        }
 
         return false;
     }
 
     //koniecHry
     public static boolean koniecHry() {
-        if (riadky() || stlpce() || diagonaly()) {
+        if (((riadky() && (!remiza())) || (stlpce() && (!remiza())) || (diagonaly() && (!remiza())))) {
             return true;
+        } else if (remiza()) {
+            System.out.println("Remíza!");
+            zobrazenieHracejPlochy();
+            System.out.println("Nevyhráva žiaden hráč");
+            System.exit(0);
         }
         return false;
+    }
+
+    //remiza
+    public static boolean remiza() {
+        for (char[] riadok : board) {
+            for (char policko : riadok) {
+                if (policko == PRAZDNO) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
     }
 }
